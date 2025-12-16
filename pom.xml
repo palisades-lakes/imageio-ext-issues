@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>palisades-lakes</groupId>
+  <artifactId>imageio-ext-issues</artifactId>
+  <description>Minimal demonstrations of imageio-ext issues</description>
+  <version>0.0.1</version>
+  <properties>
+    <doclint>none</doclint>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <commons-io-version>2.21.0</commons-io-version>
+    <github-url>scm:git:https://github.com/${project.groupId}/${project.artifactId}.git</github-url>
+    <imageio-ext-version>2.0.1</imageio-ext-version>
+    <java-version>25</java-version>
+    <maven-clean-version>3.5.0</maven-clean-version>
+    <maven-compiler-plugin-version>3.14.1</maven-compiler-plugin-version>
+    <maven-dependency-version>3.8.1</maven-dependency-version>
+  </properties>
+  <repositories>
+    <repository>
+      <id>maven2</id>
+      <url>https://repo.maven.apache.org/maven2/</url>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+        <updatePolicy>never</updatePolicy>
+        <checksumPolicy>fail</checksumPolicy>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>osgeo</id>
+      <name>OSGeo Release Repository</name>
+      <url>https://repo.osgeo.org/repository/release/</url>
+      <snapshots><enabled>false</enabled></snapshots>
+      <releases><enabled>true</enabled></releases>
+    </repository>
+    <repository>
+      <id>osgeo-snapshot</id>
+      <name>OSGeo Snapshot Repository</name>
+      <url>https://repo.osgeo.org/repository/snapshot/</url>
+      <snapshots><enabled>true</enabled></snapshots>
+      <releases><enabled>false</enabled></releases>
+    </repository>
+  </repositories>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>${maven-clean-version}</version>
+        <configuration>
+          <failOnError>false</failOnError>
+          <filesets>
+            <fileset>
+              <directory>lib</directory>
+              <includes>
+                <include>**/*</include>
+              </includes>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+          </filesets>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>${maven-compiler-plugin-version}</version>
+
+        <configuration>
+          <source>${java-version}</source>
+          <target>${java-version}</target>
+          <compilerArgs>--enable-preview</compilerArgs>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>${maven-dependency-version}</version>
+        <executions>
+          <execution>
+            <id>copy-dependencies</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>lib</outputDirectory>
+              <overWriteReleases>false</overWriteReleases>
+              <overWriteSnapshots>true</overWriteSnapshots>
+              <overWriteIfNewer>true</overWriteIfNewer>
+              <silent>true</silent>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <!-- older versions of commons-io have vulnerabilities -->
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>${commons-io-version}</version>
+    </dependency>
+    <!--
+    <dependency>
+      <groupId>it.geosolutions.imageio-ext</groupId>
+      <artifactId>imageio-ext-tiff</artifactId>
+      <version>${imageio-ext-version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-io</groupId>
+          <artifactId>commons-io</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    -->
+  </dependencies>
+</project>
