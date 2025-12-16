@@ -104,8 +104,8 @@ public final class Images {
       final String ext = extension(in);
       final String suffix =
         classExists("it.geosolutions.imageioimpl.plugins.tiff.TIFFImageReader")
-        ? "-iio"
-        : "-iiox";
+        ? "-iiox"
+        : "-iio";
 
       final File out = new File(in.getParentFile(),
                                 prefix(in) + suffix + "." + ext );

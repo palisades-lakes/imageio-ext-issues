@@ -16,7 +16,9 @@ public final class Lroc {
 
   @SuppressWarnings("unused")
   public static final void main (final String[] args) {
-    Images.readWriteRead("images/lroc/lroc_color_poles_2k.tif"); }
+    Images.readWriteRead("images/lroc/lroc_color_poles_2k.tif");
+    //Images.readWriteRead("images/lroc/lroc_color_poles_2k-iio.tif");
+  }
 
   //--------------------------------------------------------------------
   // disabled constructor

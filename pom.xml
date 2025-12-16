@@ -11,6 +11,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <commons-io-version>2.21.0</commons-io-version>
     <github-url>scm:git:https://github.com/${project.groupId}/${project.artifactId}.git</github-url>
+    <guava-version>33.5.0-jre</guava-version>
     <imageio-ext-version>2.0.1</imageio-ext-version>
     <java-version>25</java-version>
     <maven-clean-version>3.5.0</maven-clean-version>
@@ -101,13 +102,18 @@
   </build>
 
   <dependencies>
-    <!-- older versions of commons-io have vulnerabilities -->
+    <!-- older versions have vulnerabilities -->
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
       <version>${commons-io-version}</version>
     </dependency>
-    <!--
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${guava-version}</version>
+    </dependency>
+
     <dependency>
       <groupId>it.geosolutions.imageio-ext</groupId>
       <artifactId>imageio-ext-tiff</artifactId>
@@ -117,8 +123,11 @@
           <groupId>commons-io</groupId>
           <artifactId>commons-io</artifactId>
         </exclusion>
+          <exclusion>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+          </exclusion>
       </exclusions>
     </dependency>
-    -->
   </dependencies>
 </project>
